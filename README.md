@@ -8,8 +8,8 @@ O Codex-Front-End oferece telas para autenticação, dashboard, status de servi�
 
 ## Telas Principais
 
-| Login | Registro | Dashboard | Status | Ajuda | Perfil |
-|-------|----------|-----------|--------|-------|--------|
+| Login | Registro | Dashboard | Status | Ajuda | Perfil | Recuperação de Senha | Configurações|
+|-------|----------|-----------|--------|-------|--------|----------------------|--------------|
 
 > **Nota:** Algumas das telas ainda não foram devidamente prototipadas e/ou implementadas
 
