@@ -11,13 +11,6 @@ O Codex-Front-End oferece telas para autenticação, dashboard, status de servi�
 | Login | Registro | Dashboard | Status | Ajuda | Perfil |
 |-------|----------|-----------|--------|-------|--------|
 
-| ![Login](<img width="258" height="563" alt="image" src="https://github.com/user-attachments/assets/95748bd3-1a0d-42d4-a55e-70f516d082d0" />
-) | ![Registro](<img width="256" height="562" alt="image" src="https://github.com/user-attachments/assets/17f90f01-3921-4f4b-ae7b-091e08ad45fe" />
-) | ![Dashboard](<img width="259" height="562" alt="image" src="https://github.com/user-attachments/assets/91c59489-3ba8-45dd-b5cf-fa8bd2acb33f" />
-) | ![Status](<img width="257" height="564" alt="image" src="https://github.com/user-attachments/assets/7b0d917d-a611-4b05-89aa-daa9e8e7ed51" />
-) | ![Ajuda](<img width="258" height="562" alt="image" src="https://github.com/user-attachments/assets/8cfa75dd-aa37-48f7-b66b-63f023ef0de4" />
-) | ![Perfil](<img width="261" height="559" alt="image" src="https://github.com/user-attachments/assets/cdb4dfc1-ed88-4270-92c9-03065e20aa50" />
-) |
 > **Nota:** Algumas das telas ainda não foram devidamente prototipadas e/ou implementadas
 
 ### Funcionalidades
