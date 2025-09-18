@@ -14,7 +14,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  final _organizationController = TextEditingController();
 
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
@@ -25,7 +24,6 @@ class _SignUpPageState extends State<SignUpPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
-    _organizationController.dispose();
     super.dispose();
   }
 
@@ -141,12 +139,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         },
                       ),
                       const SizedBox(height: 16),
-                      _buildTextField(
-                        controller: _organizationController,
-                        label: 'Organização',
-                        hint: 'Organização',
-                        icon: Icons.apartment_outlined,
-                      ),
                     ],
                   ),
                 ),
