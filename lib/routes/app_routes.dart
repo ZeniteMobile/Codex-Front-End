@@ -3,14 +3,12 @@ import 'package:codex/pages/login.dart';
 import 'package:codex/pages/sing-up.dart';
 import 'package:flutter/material.dart';
 
-/// Contém os nomes das rotas como constantes para evitar erros de digitação.
 class AppRoutes {
   static const String login = '/';
   static const String register = '/register';
-  static const String forgot = '/forgot'; // <--- adicione isto
+  static const String forgot = '/forgot'; 
 }
 
-/// Gera as rotas com base no nome fornecido.
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -19,12 +17,10 @@ class RouteGenerator {
       case AppRoutes.register:
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       case AppRoutes.forgot:
-        // arguments pode ser uma String com o e-mail ou null
         return MaterialPageRoute(
           builder: (_) => ForgotPasswordPage(initialEmail: settings.arguments as String?),
         );
 
-      // Rota de erro caso a rota chamada não exista
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(
