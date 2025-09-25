@@ -7,15 +7,40 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Configurações'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: ListView(
-        children: [
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200.0,
+            floating: false,
+            pinned: true,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text(
+                'Configurações',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              background: Container(
+                decoration: BoxDecoration(
+                 color: Colors.white,
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                    size: 80,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
           _buildSettingsItem(
             context,
             icon: Icons.data_object,
@@ -62,6 +87,8 @@ class SettingsPage extends StatelessWidget {
             onTap: () {
               Navigator.pushNamed(context, AppRoutes.about);
             },
+          ),
+            ]),
           ),
         ],
       ),
