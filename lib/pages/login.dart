@@ -23,17 +23,29 @@ class _LoginPageState extends State<LoginPage> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Entrando...')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Entrando...')));
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final primary = const Color(0xFF4069A3); 
+    final primary = const Color(0xFF4069A3);
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.settings, color: Colors.black),
+            onPressed: () {
+              Navigator.pushNamed(context, AppRoutes.settings);
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
@@ -84,7 +96,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Informe o e‑mail';
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v)) return 'E‑mail inválido';
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v))
+                            return 'E‑mail inválido';
                           return null;
                         },
                       ),
@@ -96,8 +109,13 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: 'Senha',
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
-                            icon: Icon(_obscure ? Icons.visibility_off : Icons.visibility),
-                            onPressed: () => setState(() => _obscure = !_obscure),
+                            icon: Icon(
+                              _obscure
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                            ),
+                            onPressed:
+                                () => setState(() => _obscure = !_obscure),
                           ),
                           filled: true,
                           fillColor: Colors.white,
@@ -112,7 +130,8 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Informe a senha';
-                          if (v.length < 6) return 'Senha deve ter ao menos 6 caracteres';
+                          if (v.length < 6)
+                            return 'Senha deve ter ao menos 6 caracteres';
                           return null;
                         },
                       ),
@@ -124,9 +143,14 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: _submit,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                           ),
-                          child: const Text('Entrar', style: TextStyle(fontSize: 16, color: Colors.white)),
+                          child: const Text(
+                            'Entrar',
+                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -141,16 +165,28 @@ class _LoginPageState extends State<LoginPage> {
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.grey.shade300,
                             foregroundColor: Colors.black,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
+                            ),
                           ),
-                          child: const Text('Cadastre-se', style: TextStyle(fontSize: 16)),
+                          child: const Text(
+                            'Cadastre-se',
+                            style: TextStyle(fontSize: 16),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 12),
                       TextButton(
                         onPressed: () {
-                          final emailArg = _emailController.text.trim().isEmpty ? null : _emailController.text.trim();
-                          Navigator.pushNamed(context, AppRoutes.forgot, arguments: emailArg);
+                          final emailArg =
+                              _emailController.text.trim().isEmpty
+                                  ? null
+                                  : _emailController.text.trim();
+                          Navigator.pushNamed(
+                            context,
+                            AppRoutes.forgot,
+                            arguments: emailArg,
+                          );
                         },
                         child: const Text('Esqueci minha senha'),
                       ),
