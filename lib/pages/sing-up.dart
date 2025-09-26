@@ -1,3 +1,4 @@
+import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _createAccount() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Lógica para criar a conta
+      Navigator.pushNamed(context, AppRoutes.postLogin);
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Criando conta...')),
       );
