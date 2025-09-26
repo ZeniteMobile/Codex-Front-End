@@ -1,7 +1,9 @@
+import 'package:codex/pages/about_page.dart';
 import 'package:codex/pages/forgot_password.dart';
 import 'package:codex/pages/login.dart';
 import 'package:codex/pages/post_login.dart';
 import 'package:codex/pages/sing-up.dart';
+import 'package:codex/pages/settings_page.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -9,6 +11,8 @@ class AppRoutes {
   static const String register = '/register';
   static const String forgot = '/forgot'; 
   static const String postLogin = '/post-login';
+  static const String settings = '/settings';
+  static const String about = '/about';
 }
 
 class RouteGenerator {
@@ -20,18 +24,25 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SignUpPage());
       case AppRoutes.forgot:
         return MaterialPageRoute(
-          builder: (_) => ForgotPasswordPage(initialEmail: settings.arguments as String?),
+          builder:
+              (_) => ForgotPasswordPage(
+                initialEmail: settings.arguments as String?,
+              ),
         );
       case AppRoutes.postLogin:
         return MaterialPageRoute(builder: (_) => const PostLoginPage());
-        
+      case AppRoutes.settings:
+        return MaterialPageRoute(builder: (_) => const SettingsPage());
+      case AppRoutes.about:
+        return MaterialPageRoute(builder: (_) => const AboutPage());
 
       default:
         return MaterialPageRoute(
-          builder: (_) => Scaffold(
-            appBar: AppBar(title: const Text('Erro')),
-            body: const Center(child: Text('Página não encontrada')),
-          ),
+          builder:
+              (_) => Scaffold(
+                appBar: AppBar(title: const Text('Erro')),
+                body: const Center(child: Text('Página não encontrada')),
+              ),
         );
     }
   }
