@@ -1,5 +1,6 @@
 import 'package:codex/pages/forgot_password.dart';
 import 'package:codex/pages/login.dart';
+import 'package:codex/pages/post_login.dart';
 import 'package:codex/pages/sing-up.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ class AppRoutes {
   static const String login = '/';
   static const String register = '/register';
   static const String forgot = '/forgot'; 
+  static const String postLogin = '/post-login';
 }
 
 class RouteGenerator {
@@ -20,6 +22,9 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => ForgotPasswordPage(initialEmail: settings.arguments as String?),
         );
+      case AppRoutes.postLogin:
+        return MaterialPageRoute(builder: (_) => const PostLoginPage());
+        
 
       default:
         return MaterialPageRoute(
