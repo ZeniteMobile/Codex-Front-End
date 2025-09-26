@@ -13,9 +13,29 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Codex App',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4069A3)),
+        // Mude aqui a cor seed para a cor principal do app
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF1E88E5)),
         useMaterial3: true,
+        // Opcional: ajuste visual de botões/AppBar para garantir consistência
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1E88E5),
+          foregroundColor: Colors.white,
+          elevation: 0,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF1E88E5),
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Color(0xFF1E88E5), width: 2),
+          ),
+        ),
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.login,
