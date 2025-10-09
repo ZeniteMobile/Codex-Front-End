@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:codex/routes/app_routes.dart';
 import 'package:codex/widgets/form_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -178,7 +179,7 @@ class _PostLoginPageState extends State<PostLoginPage> {
                             width: double.infinity,
                             child: ElevatedButton(
                               onPressed: () {
-                                // botão apenas exibe/guarda, sem editar campos
+                                Navigator.pushNamed(context, AppRoutes.dashboard);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: const Color(0xFF4069A3),
