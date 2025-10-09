@@ -47,62 +47,59 @@ class SettingsPage extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
             sliver: SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  const SizedBox(height: 8),
-                  _buildSettingsItem(
-                    context,
-                    icon: Icons.data_object,
-                    title: 'Dados da API',
-                    subtitle: 'Configuração da API',
-                    onTap: () {
-                      // TODO: Navigate to API settings
-                    },
-                  ),
-                  _buildSettingsItem(
-                    context,
-                    icon: Icons.person_outline,
-                    title: 'Dados do Usuário',
-                    subtitle:
-                        'Modificação de dados do usuário como Nome, E-mail e Senha',
-                    onTap: () {
-                      // TODO: Navigate to User Data
-                    },
-                  ),
-                  _buildSettingsItem(
-                    context,
-                    icon: Icons.pie_chart_outline,
-                    title: 'Visualização',
-                    subtitle: 'Configuração dos gráficos da dashboard',
-                    onTap: () {
-                      // TODO: Navigate to Visualization settings
-                    },
-                  ),
-                  _buildSettingsItem(
-                    context,
-                    icon: Icons.timer_outlined,
-                    title: 'Tempo Limite',
-                    subtitle:
-                        'Configuração do tempo limite de resposta (apenas para visualização)',
-                    onTap: () {
-                      // TODO: Navigate to Timeout settings
-                    },
-                  ),
-                  _buildSettingsItem(
-                    context,
-                    icon: Icons.info_outline,
-                    title: 'Sobre',
-                    subtitle: 'Sobre o Codex, licensas e equipe de desenvolvimento',
-                    onTap: () {
-                      Navigator.pushNamed(context, AppRoutes.about);
-                    },
-                  ),
-                  const SizedBox(height: 32),
-                ],
-              ),
+              delegate: SliverChildListDelegate([
+                const SizedBox(height: 8),
+                _buildSettingsItem(
+                  context,
+                  icon: Icons.data_object,
+                  title: 'Dados da API',
+                  subtitle: 'Configuração da API',
+                  onTap: () {
+                    // TODO: Navigate to API settings
+                  },
+                ),
+                _buildSettingsItem(
+                  context,
+                  icon: Icons.person_outline,
+                  title: 'Dados do Usuário',
+                  subtitle:
+                      'Modificação de dados do usuário como Nome, E-mail e Senha',
+                  onTap: () {
+                    // TODO: Navigate to User Data
+                  },
+                ),
+                _buildSettingsItem(
+                  context,
+                  icon: Icons.pie_chart_outline,
+                  title: 'Visualização',
+                  subtitle: 'Configuração dos gráficos da dashboard',
+                  onTap: () {
+                    // TODO: Navigate to Visualization settings
+                  },
+                ),
+                _buildSettingsItem(
+                  context,
+                  icon: Icons.timer_outlined,
+                  title: 'Tempo Limite',
+                  subtitle:
+                      'Configuração do tempo limite de resposta (apenas para visualização)',
+                  onTap: () {
+                    // TODO: Navigate to Timeout settings
+                  },
+                ),
+                _buildSettingsItem(
+                  context,
+                  icon: Icons.info_outline,
+                  title: 'Sobre',
+                  subtitle:
+                      'Sobre o Codex, licensas e equipe de desenvolvimento',
+                  onTap: () {
+                    Navigator.pushNamed(context, AppRoutes.about);
+                  },
+                ),
+                const SizedBox(height: 32),
+              ]),
             ),
-          ),
-            ]),
           ),
         ],
       ),
