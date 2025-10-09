@@ -59,3 +59,12 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+    - assets/profile-pics/1.png
+    - assets/profile-pics/2.png
+    - assets/profile-pics/3.png
+    - assets/profile-pics/4.png
+    - assets/profile-pics/5.png
+    - assets/profile-pics/6.png
+    - assets/profile-pics/7.png
+    - assets/profile-pics/8.png
+    - assets/profile-pics/9.png
