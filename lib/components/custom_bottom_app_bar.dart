@@ -16,11 +16,7 @@ class CustomBottomAppBar extends StatelessWidget {
 
     void navigateTo(String targetRoute) {
       if (route != targetRoute) {
-        if (targetRoute == AppRoutes.dashboard) {
-          Navigator.pushReplacementNamed(context, targetRoute);
-        } else {
-          Navigator.pushNamed(context, targetRoute);
-        }
+        Navigator.pushNamedAndRemoveUntil(context, targetRoute, (_) => false);
       }
     }
 
