@@ -1,3 +1,5 @@
+import 'package:codex/components/scaffold_with_slivers.dart';
+import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 class HelpPage extends StatelessWidget {
@@ -5,23 +7,10 @@ class HelpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Ajuda',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          onPressed: () {
-            // Ação para o menu
-          },
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-      ),
+    return ScaffoldWithSlivers(
+      title: 'Ajuda',
+      showBackButton: false,
+      currentRoute: AppRoutes.help,
       body: Stack(
         children: [
           SingleChildScrollView(
@@ -67,7 +56,6 @@ class HelpPage extends StatelessWidget {
               ],
             ),
           ),
-          _buildBottomBar(),
         ],
       ),
     );
@@ -95,75 +83,6 @@ class HelpPage extends StatelessWidget {
               'Aqui vai a resposta para a pergunta. Este é um texto de exemplo para preencher o espaço.',
               style: TextStyle(color: Colors.black54),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomBar() {
-    return Positioned(
-      bottom: 20,
-      left: 20,
-      right: 20,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home_outlined),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 8),
-                IconButton(icon: const Icon(Icons.wifi), onPressed: () {}),
-                const SizedBox(width: 8),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.blue.withOpacity(0.5),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.shield_outlined,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                IconButton(
-                  icon: const Icon(Icons.person_outline),
-                  onPressed: () {},
-                ),
-              ],
-            ),
-          ),
-          FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: Colors.blue[700],
-            child: const Icon(Icons.settings, color: Colors.white),
           ),
         ],
       ),

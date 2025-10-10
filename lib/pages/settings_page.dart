@@ -29,7 +29,7 @@ class SettingsPage extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                 child: Container(
-                  color: Colors.white.withOpacity(0.5),
+                  color: Colors.white.withValues(alpha: 0.5),
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.bottomLeft,
                   child: const Text(
