@@ -25,9 +25,10 @@ class ScaffoldWithSlivers extends StatelessWidget {
         slivers: [
           SliverAppBar.medium(
             pinned: true,
-            expandedHeight: 80,
+            expandedHeight: 120,
             elevation: 0,
             backgroundColor: Colors.transparent,
+            automaticallyImplyLeading: false,
             leading: showBackButton
                 ? IconButton(
                     icon: const Icon(Icons.chevron_left),
