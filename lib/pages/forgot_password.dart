@@ -2,7 +2,6 @@ import 'package:codex/components/notification_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-
 class ForgotPasswordPage extends StatefulWidget {
   final String? initialEmail;
   const ForgotPasswordPage({super.key, this.initialEmail});
@@ -107,10 +106,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             controller: _emailController,
                             keyboardType: TextInputType.emailAddress,
                             validator: (v) {
-                              if (v == null || v.isEmpty)
+                              if (v == null || v.isEmpty) {
                                 return 'Informe o e‑mail';
-                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v))
+                              }
+                              if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v)) {
                                 return 'E‑mail inválido';
+                              }
                               return null;
                             },
                             decoration: InputDecoration(

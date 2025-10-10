@@ -96,8 +96,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Informe o e‑mail';
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v))
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v)) {
                             return 'E‑mail inválido';
+                          }
                           return null;
                         },
                       ),
@@ -114,8 +115,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                             ),
-                            onPressed:
-                                () => setState(() => _obscure = !_obscure),
+                            onPressed: () =>
+                                setState(() => _obscure = !_obscure),
                           ),
                           filled: true,
                           fillColor: Colors.white,
@@ -130,8 +131,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Informe a senha';
-                          if (v.length < 6)
+                          if (v.length < 6) {
                             return 'Senha deve ter ao menos 6 caracteres';
+                          }
                           return null;
                         },
                       ),
@@ -178,10 +180,9 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 12),
                       TextButton(
                         onPressed: () {
-                          final emailArg =
-                              _emailController.text.trim().isEmpty
-                                  ? null
-                                  : _emailController.text.trim();
+                          final emailArg = _emailController.text.trim().isEmpty
+                              ? null
+                              : _emailController.text.trim();
                           Navigator.pushNamed(
                             context,
                             AppRoutes.forgot,
