@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:codex/components/scaffold_with_slivers.dart';
 import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -7,100 +8,61 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        physics: const BouncingScrollPhysics(),
-        slivers: [
-          SliverAppBar.medium(
-            pinned: true,
-            expandedHeight: 200,
-            elevation: 0,
-            backgroundColor: Colors.transparent,
-            leading: IconButton(
-              icon: const Icon(Icons.chevron_left),
-              color: Colors.black,
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            flexibleSpace: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                child: Container(
-                  color: Colors.white.withValues(alpha: 0.5),
-                  padding: const EdgeInsets.all(16),
-                  alignment: Alignment.bottomLeft,
-                  child: const Text(
-                    'Informações da sua API',
-                    style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+    return ScaffoldWithSlivers(
+      title: "Configurações",
+      showBackButton: false,
+      currentRoute: AppRoutes.settings,
+      body: Column(
+        children: [
+          const SizedBox(height: 8),
+          _buildSettingsItem(
+            context,
+            icon: Icons.data_object,
+            title: 'Dados da API',
+            subtitle: 'Configuração da API',
+            onTap: () {
+              // TODO: Navigate to API settings
+            },
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                const SizedBox(height: 8),
-                _buildSettingsItem(
-                  context,
-                  icon: Icons.data_object,
-                  title: 'Dados da API',
-                  subtitle: 'Configuração da API',
-                  onTap: () {
-                    // TODO: Navigate to API settings
-                  },
-                ),
-                _buildSettingsItem(
-                  context,
-                  icon: Icons.person_outline,
-                  title: 'Dados do Usuário',
-                  subtitle:
-                      'Modificação de dados do usuário como Nome, E-mail e Senha',
-                  onTap: () {
-                    // TODO: Navigate to User Data
-                  },
-                ),
-                _buildSettingsItem(
-                  context,
-                  icon: Icons.pie_chart_outline,
-                  title: 'Visualização',
-                  subtitle: 'Configuração dos gráficos da dashboard',
-                  onTap: () {
-                    // TODO: Navigate to Visualization settings
-                  },
-                ),
-                _buildSettingsItem(
-                  context,
-                  icon: Icons.timer_outlined,
-                  title: 'Tempo Limite',
-                  subtitle:
-                      'Configuração do tempo limite de resposta (apenas para visualização)',
-                  onTap: () {
-                    // TODO: Navigate to Timeout settings
-                  },
-                ),
-                _buildSettingsItem(
-                  context,
-                  icon: Icons.info_outline,
-                  title: 'Sobre',
-                  subtitle:
-                      'Sobre o Codex, licensas e equipe de desenvolvimento',
-                  onTap: () {
-                    Navigator.pushNamed(context, AppRoutes.about);
-                  },
-                ),
-                const SizedBox(height: 32),
-              ]),
-            ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.person_outline,
+            title: 'Dados do Usuário',
+            subtitle:
+                'Modificação de dados do usuário como Nome, E-mail e Senha',
+            onTap: () {
+              // TODO: Navigate to User Data
+            },
           ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.pie_chart_outline,
+            title: 'Visualização',
+            subtitle: 'Configuração dos gráficos da dashboard',
+            onTap: () {
+              // TODO: Navigate to Visualization settings
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.timer_outlined,
+            title: 'Tempo Limite',
+            subtitle:
+                'Configuração do tempo limite de resposta (apenas para visualização)',
+            onTap: () {
+              // TODO: Navigate to Timeout settings
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.info_outline,
+            title: 'Sobre',
+            subtitle: 'Sobre o Codex, licensas e equipe de desenvolvimento',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.about);
+            },
+          ),
+          const SizedBox(height: 32),
         ],
       ),
     );
