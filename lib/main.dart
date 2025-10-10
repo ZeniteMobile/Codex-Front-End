@@ -1,6 +1,7 @@
 import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
+const baseUrl = 'https://localhost:3000';
 void main() {
   runApp(const MyApp());
 }

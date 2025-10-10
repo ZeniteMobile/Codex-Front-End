@@ -39,7 +39,6 @@ class AboutPage extends StatelessWidget {
                         color: Colors.black87,
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        
                       ),
                     ),
                   ),
@@ -67,21 +66,31 @@ class AboutPage extends StatelessWidget {
                             'assets/logo-zenite.png',
                             width: 200,
                             height: 200,
-                            frameBuilder: (BuildContext context, Widget child, int? frame, bool wasSynchronouslyLoaded) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: child,
-                              );
-                            },
+                            frameBuilder:
+                                (
+                                  BuildContext context,
+                                  Widget child,
+                                  int? frame,
+                                  bool wasSynchronouslyLoaded,
+                                ) {
+                                  return ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    child: child,
+                                  );
+                                },
                             fit: BoxFit.contain,
-                            
-                            errorBuilder: (_, __, ___) => Icon(Icons.error, size: 100),
+
+                            errorBuilder: (_, __, ___) =>
+                                Icon(Icons.error, size: 100),
                           ),
                         ),
                         const SizedBox(height: 16),
                         const Text(
                           'Desenvolvido pela Zênite-Digital',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
