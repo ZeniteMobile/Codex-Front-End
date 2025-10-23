@@ -4,6 +4,7 @@ import 'package:codex/routes/app_routes.dart';
 import 'package:codex/widgets/form_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // <--- nova importação
 
 class PostLoginPage extends StatefulWidget {
   const PostLoginPage({super.key});
@@ -26,13 +27,12 @@ class _PostLoginPageState extends State<PostLoginPage> {
   }
 
   Future<void> _loadFromDatabase() async {
-    // Substitua por chamada real ao banco/serviço
-    await Future.delayed(const Duration(milliseconds: 300));
+    final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _nameController.text = 'Usuário Exemplo';
-      _emailController.text = 'usuario@exemplo.com';
-      _passwordController.text = 'minhaSenhaSegura123';
-      _apiKeyController.text = 'AlzaSyDaGmWK4aJsXZ...'; 
+      _nameController.text = prefs.getString('user_name') ?? '';
+      _emailController.text = prefs.getString('user_email') ?? '';
+      _passwordController.text = prefs.getString('user_password') ?? '';
+      _apiKeyController.text = prefs.getString('user_api_key') ?? '';
     });
   }
 
@@ -80,7 +80,7 @@ class _PostLoginPageState extends State<PostLoginPage> {
                 child: BackdropFilter(
                   filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                   child: Container(
-                    color: Colors.white.withValues(alpha: 0.5),
+                    color: Colors.white.withOpacity(0.5),  // Corrigido: use withOpacity
                     padding: const EdgeInsets.all(16),
                     alignment: Alignment.bottomLeft,
                     child: const Text(
