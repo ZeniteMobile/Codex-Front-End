@@ -27,7 +27,7 @@ class SettingsPage extends StatelessWidget {
               ),
               background: Container(
                 decoration: BoxDecoration(
-                 color: Colors.white,
+                  color: Colors.white,
                 ),
                 child: const Center(
                   child: Icon(
@@ -57,7 +57,7 @@ class SettingsPage extends StatelessWidget {
             subtitle:
                 'Modificação de dados do usuário como Nome, E-mail e Senha',
             onTap: () {
-              // TODO: Navigate to User Data
+              Navigator.pushNamed(context, AppRoutes.profile);
             },
           ),
           _buildSettingsItem(
@@ -88,6 +88,42 @@ class SettingsPage extends StatelessWidget {
               Navigator.pushNamed(context, AppRoutes.about);
             },
           ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.chat,
+            title: 'Chat de Suporte',
+            subtitle: 'IA auxiliar para dúvidas e suporte',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.help);
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.monitor_heart_outlined,
+            title: 'Status',
+            subtitle: 'Status',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.status);
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.chat,
+            title: 'Chat de Suporte',
+            subtitle: 'IA auxiliar para dúvidas e suporte',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.helpChat);
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.monitor_heart_outlined,
+            title: 'Status',
+            subtitle: 'Status',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.status);
+            },
+          ),
             ]),
           ),
         ],
@@ -106,10 +142,10 @@ class SettingsPage extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.purple.withOpacity(0.1),
+          color: Colors.blue.withOpacity(0.1),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Icon(icon, color: Colors.purple),
+        child: Icon(icon, color: Colors.blue),
       ),
       title: Text(title),
       subtitle: Text(subtitle),

@@ -80,7 +80,7 @@ class AboutPage extends StatelessWidget {
                 _buildTeamMember(
                   name: 'Arthur Hydeki Ricken',
                   role: 'Desenvolvedor',
-                  imageAsset: 'assets/profile-pics/1.png',
+                  imageAsset: 'assets/profile-pics/tui.jpeg',
                 ),
                 _buildTeamMember(
                   name: 'Eduardo B. Garcia',

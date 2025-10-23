@@ -1,3 +1,4 @@
+import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
 enum StatusFilter { status, emProcessamento, meusPedidos }
@@ -22,9 +23,9 @@ class _StatusPageState extends State<StatusPage> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         leading: IconButton(
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Ação para o menu
+            Navigator.pushNamed(context, AppRoutes.settings);
           },
         ),
         backgroundColor: Colors.white,

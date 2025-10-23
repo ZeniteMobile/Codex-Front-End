@@ -14,45 +14,59 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: const Text(
-          'Perfil',
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black54),
-          onPressed: () {
-            // Ação para o menu
-          },
-        ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        scrolledUnderElevation: 0,
-      ),
-      body: Stack(
-        children: [
-          SingleChildScrollView(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200.0,
+            floating: false,
+            pinned: true,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text(
+                'Dados do usuário',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              background: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.white,
+                    size: 80,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverPadding(
             padding: const EdgeInsets.fromLTRB(
               24.0,
               16.0,
               24.0,
               150.0,
             ), // Espaço para a barra inferior
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
                 const SizedBox(height: 20),
                 Center(
                   child: Column(
                     children: [
                       const CircleAvatar(
                         radius: 50,
-                        backgroundColor: Color(0xFFFDE2E2),
-                        // Placeholder for the profile image. You can use AssetImage here.
+                        backgroundColor: Colors.black ,
+                        
                         child: Icon(
                           Icons.person,
                           size: 60,
-                          color: Color(0xFFE57373),
+                          color: Colors.blue,
                         ),
                       ),
                       const SizedBox(height: 12),
@@ -94,7 +108,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFD9534F),
+                    backgroundColor: Color(0xFF4069A3),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -106,10 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
                     style: TextStyle(fontSize: 16, color: Colors.white),
                   ),
                 ),
-              ],
+              ]),
             ),
           ),
-          _buildBottomBar(),
         ],
       ),
     );
@@ -159,72 +172,6 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildBottomBar() {
-    return Positioned(
-      bottom: 20,
-      left: 20,
-      right: 20,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  blurRadius: 10,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.home_outlined),
-                  onPressed: () {},
-                ),
-                const SizedBox(width: 8),
-                IconButton(icon: const Icon(Icons.wifi), onPressed: () {}),
-                const SizedBox(width: 8),
-                IconButton(icon: const Icon(Icons.history), onPressed: () {}),
-                const SizedBox(width: 8),
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFD9534F),
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: const Color(0xFFD9534F).withOpacity(0.5),
-                        blurRadius: 8,
-                        spreadRadius: 2,
-                      ),
-                    ],
-                  ),
-                  child: const Icon(
-                    Icons.person,
-                    color: Colors.white,
-                    size: 20,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingActionButton(
-            onPressed: () {},
-            backgroundColor: Colors.blue[700],
-            child: const Icon(Icons.settings, color: Colors.white),
-          ),
-        ],
-      ),
     );
   }
 }
