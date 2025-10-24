@@ -1,7 +1,7 @@
 import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
-const baseUrl = 'https://localhost:3000';
+const baseUrl = 'http://localhost:3000';
 void main() {
   runApp(const MyApp());
 }
@@ -27,7 +27,9 @@ class MyApp extends StatelessWidget {
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFF1E88E5),
             foregroundColor: Colors.white,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
         ),
         inputDecorationTheme: InputDecorationTheme(

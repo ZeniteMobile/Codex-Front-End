@@ -1,4 +1,6 @@
 import 'dart:ui';
+
+import 'package:codex/components/scaffold_with_slivers.dart';
 import 'package:flutter/material.dart';
 
 class AboutPage extends StatelessWidget {
@@ -28,7 +30,7 @@ class AboutPage extends StatelessWidget {
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                 child: Container(
-                  color: Colors.white.withValues(alpha: 0.5),
+                  color: Colors.white.withOpacity(0.5),
                   padding: const EdgeInsets.all(16),
                   alignment: Alignment.bottomLeft,
                   child: Padding(
@@ -79,7 +81,6 @@ class AboutPage extends StatelessWidget {
                                   );
                                 },
                             fit: BoxFit.contain,
-
                             errorBuilder: (_, __, ___) =>
                                 Icon(Icons.error, size: 100),
                           ),
@@ -94,6 +95,11 @@ class AboutPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                  const SizedBox(height: 16),
+                  const Text(
+                    'Desenvolvido pela Zênite-Digital',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 24),
                   const Text(

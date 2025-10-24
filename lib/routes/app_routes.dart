@@ -1,11 +1,12 @@
 import 'package:codex/pages/about_page.dart';
 import 'package:codex/pages/dashboard.dart';
 import 'package:codex/pages/forgot_password.dart';
+import 'package:codex/pages/help.dart';
 import 'package:codex/pages/login.dart';
 import 'package:codex/pages/post_login.dart';
 import 'package:codex/pages/profile.dart';
-import 'package:codex/pages/sing-up.dart';
 import 'package:codex/pages/settings_page.dart';
+import 'package:codex/pages/sing-up.dart';
 import 'package:codex/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,7 @@ class AppRoutes {
   static const String about = '/about';
   static const String dashboard = '/dashboard';
   static const String profile = '/profile';
+  static const String help = '/help';
 }
 
 class RouteGenerator {
@@ -45,6 +47,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const DashboardPage());
       case AppRoutes.profile:
         return MaterialPageRoute(builder: (_) => const Profile());
+      case AppRoutes.help:
+        return MaterialPageRoute(builder: (_) => const HelpPage());
 
       default:
         return MaterialPageRoute(
