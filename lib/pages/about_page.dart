@@ -53,10 +53,90 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 24),
-            const Text(
-              'Equipe',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.all(16.0),
+            sliver: SliverList(
+              delegate: SliverChildListDelegate([
+                Center(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          color: Colors.green[800],
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        // Placeholder for the logo
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset(
+                            'assets/logo-zenite.jpeg',
+                            width: 120,
+                            height: 120,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'Desenvolvido pela Zênite-Digital',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Equipe',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildTeamMember(
+                  name: 'Arthur Hydeki Ricken',
+                  role: 'Desenvolvedor',
+                  imageAsset: 'assets/profile-pics/tui.jpeg',
+                ),
+                _buildTeamMember(
+                  name: 'Eduardo B. Garcia',
+                  role: 'Desenvolvedor',
+                  imageAsset: 'assets/profile-pics/2.png',
+                ),
+                _buildTeamMember(
+                  name: 'Rafael L. B. Ouverney',
+                  role: 'Desenvolvedor',
+                  imageAsset: 'assets/profile-pics/3.png',
+                ),
+                _buildTeamMember(
+                  name: 'Vitor B. Garcia',
+                  role: 'Desenvolvedor',
+                  imageAsset: 'assets/profile-pics/4.png',
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'Licenças',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildLicenseItem(
+                  title: 'Imagens de Perfil',
+                  subtitle: 'Imagem por pikisuperstar, Freepik',
+                  icon: Icons.collections,
+                ),
+                const SizedBox(height: 24),
+                const Text(
+                  'IFPR',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
+                _buildLicenseItem(
+                  title: 'Desenvolvido no IFPR',
+                  subtitle:
+                      'Parte de projeto na disciplina de Desenvolvimento para Dispositivos Móveis',
+                  icon: Icons.school,
+                ),
+              ]),
             ),
             const SizedBox(height: 8),
             _buildTeamMember(

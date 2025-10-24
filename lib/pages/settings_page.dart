@@ -8,13 +8,41 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldWithSlivers(
-      title: "Configurações",
-      showBackButton: false,
-      currentRoute: AppRoutes.settings,
-      body: Column(
-        children: [
-          const SizedBox(height: 8),
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            expandedHeight: 200.0,
+            floating: false,
+            pinned: true,
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text(
+                'Configurações',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              background: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: const Center(
+                  child: Icon(
+                    Icons.settings,
+                    color: Colors.white,
+                    size: 80,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
           _buildSettingsItem(
             context,
             icon: Icons.data_object,
@@ -31,7 +59,7 @@ class SettingsPage extends StatelessWidget {
             subtitle:
                 'Modificação de dados do usuário como Nome, E-mail e Senha',
             onTap: () {
-              // TODO: Navigate to User Data
+              Navigator.pushNamed(context, AppRoutes.profile);
             },
           ),
           _buildSettingsItem(
@@ -62,7 +90,44 @@ class SettingsPage extends StatelessWidget {
               Navigator.pushNamed(context, AppRoutes.about);
             },
           ),
-          const SizedBox(height: 32),
+          _buildSettingsItem(
+            context,
+            icon: Icons.chat,
+            title: 'Chat de Suporte',
+            subtitle: 'IA auxiliar para dúvidas e suporte',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.help);
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.monitor_heart_outlined,
+            title: 'Status',
+            subtitle: 'Status',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.status);
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.chat,
+            title: 'Chat de Suporte',
+            subtitle: 'IA auxiliar para dúvidas e suporte',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.helpChat);
+            },
+          ),
+          _buildSettingsItem(
+            context,
+            icon: Icons.monitor_heart_outlined,
+            title: 'Status',
+            subtitle: 'Status',
+            onTap: () {
+              Navigator.pushNamed(context, AppRoutes.status);
+            },
+          ),
+            ]),
+          ),
         ],
       ),
     );
@@ -80,10 +145,10 @@ class SettingsPage extends StatelessWidget {
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.blue.withValues(alpha: 0.1),
+          color: Colors.blue.withOpacity(0.1),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Icon(icon, color: Colors.blueAccent),
+        child: Icon(icon, color: Colors.blue),
       ),
       title: Text(title),
       subtitle: Text(subtitle),
