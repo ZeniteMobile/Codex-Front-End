@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:codex/components/scaffold_with_slivers.dart';
 import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 
@@ -139,6 +141,7 @@ class SettingsPage extends StatelessWidget {
     required VoidCallback onTap,
   }) {
     return ListTile(
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

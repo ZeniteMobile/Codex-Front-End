@@ -1,11 +1,20 @@
+import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
+}
+
+Future<http.Response> _signUp(String name, String email, String password) {
+  return http.post(
+    Uri.parse('http://localhost:3000/usuario'),
+    body: {'nome': name, 'email': email, 'senha': password},
+  );
 }
 
 class _SignUpPageState extends State<SignUpPage> {
@@ -29,10 +38,23 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void _createAccount() {
     if (_formKey.currentState?.validate() ?? false) {
-      // Lógica para criar a conta
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Criando conta...')),
-      );
+      _signUp(
+        _nameController.text,
+        _emailController.text,
+        _passwordController.text,
+      ).then((response) {
+        if (response.statusCode == 201) {
+          Navigator.pushNamedAndRemoveUntil(context, AppRoutes.postLogin, (route) => false);
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Erro: ${response.body}')),
+          );
+        }
+      }).catchError((error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro: $error')),
+        );
+      });
     }
   }
 

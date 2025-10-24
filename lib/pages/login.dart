@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:codex/routes/app_routes.dart';
+import 'package:http/http.dart' as http;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
+}
+
+Future<http.Response> _login(String email, String password) {
+  return http.post(
+    Uri.parse('http://localhost:3000/auth'),
+    body: {'email': email, 'senha': password},
+  );
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -23,9 +31,42 @@ class _LoginPageState extends State<LoginPage> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text('Entrando...')));
+      _login(_emailController.text, _passwordController.text)
+          .then((response) {
+            if (response.statusCode == 201) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                   response.body,
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.dashboard, (route) => false);
+            } else if (response.statusCode == 401) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Erro: E-mail ou senha inválidos',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  backgroundColor: Colors.redAccent,
+                ),
+              );
+            }
+          })
+          .catchError((error) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text(
+                  'Erro: $error',
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.redAccent,
+              ),
+            );
+          });
     }
   }
 
@@ -96,8 +137,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Informe o e‑mail';
-                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v))
+                          if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(v)) {
                             return 'E‑mail inválido';
+                          }
                           return null;
                         },
                       ),
@@ -114,8 +156,8 @@ class _LoginPageState extends State<LoginPage> {
                                   ? Icons.visibility_off
                                   : Icons.visibility,
                             ),
-                            onPressed:
-                                () => setState(() => _obscure = !_obscure),
+                            onPressed: () =>
+                                setState(() => _obscure = !_obscure),
                           ),
                           filled: true,
                           fillColor: Colors.white,
@@ -130,29 +172,100 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Informe a senha';
-                          if (v.length < 6)
+                          if (v.length < 6) {
                             return 'Senha deve ter ao menos 6 caracteres';
+                          }
                           return null;
                         },
                       ),
                       const SizedBox(height: 18),
-                      SizedBox(
+                        SizedBox(
                         width: double.infinity,
                         height: 48,
                         child: ElevatedButton(
-                          onPressed: _submit,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primary,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
+                          onPressed: () async {
+                          if (!(_formKey.currentState?.validate() ?? false)) return;
+
+                          // mostra diálogo de carregamento
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (_) => const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
                             ),
+                            ),
+                          );
+
+                          try {
+                            final response = await _login(
+                            _emailController.text,
+                            _passwordController.text,
+                            );
+
+                            // fecha o diálogo de carregamento
+                            if (mounted) Navigator.of(context, rootNavigator: true).pop();
+
+                            if (response.statusCode == 201) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                              content: Text(
+                                response.body,
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.green,
+                              ),
+                            );
+                            if (mounted) {
+                              Navigator.pushNamedAndRemoveUntil(
+                                context, AppRoutes.dashboard, (route) => false);
+                            }
+                            } else if (response.statusCode == 401) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                              content: const Text(
+                                'Erro: E-mail ou senha inválidos',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.redAccent,
+                              ),
+                            );
+                            } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                              content: Text(
+                                'Erro: ${response.statusCode} ${response.reasonPhrase}',
+                                style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.redAccent,
+                              ),
+                            );
+                            }
+                          } catch (error) {
+                            if (mounted) Navigator.of(context, rootNavigator: true).pop();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                              'Erro: $error',
+                              style: const TextStyle(color: Colors.white),
+                              ),
+                              backgroundColor: Colors.redAccent,
+                            ),
+                            );
+                          }
+                          },
+                          style: ElevatedButton.styleFrom(
+                          backgroundColor: primary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                           ),
                           child: const Text(
-                            'Entrar',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
+                          'Entrar',
+                          style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                         ),
-                      ),
+                        ),
                       const SizedBox(height: 12),
                       SizedBox(
                         width: double.infinity,
@@ -178,10 +291,9 @@ class _LoginPageState extends State<LoginPage> {
                       const SizedBox(height: 12),
                       TextButton(
                         onPressed: () {
-                          final emailArg =
-                              _emailController.text.trim().isEmpty
-                                  ? null
-                                  : _emailController.text.trim();
+                          final emailArg = _emailController.text.trim().isEmpty
+                              ? null
+                              : _emailController.text.trim();
                           Navigator.pushNamed(
                             context,
                             AppRoutes.forgot,
