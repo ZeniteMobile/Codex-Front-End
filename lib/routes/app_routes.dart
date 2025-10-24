@@ -29,7 +29,6 @@ class AppRoutes {
   static const String help = '/help';
   static const String profile = '/profile';
   static const String dashboard = '/dashboard';
-  static const String help = '/help';
 }
 
 class RouteGenerator {
@@ -57,14 +56,12 @@ class RouteGenerator {
       case AppRoutes.helpChat:
         return MaterialPageRoute(builder: (_) => const HelpChatPage());
       case AppRoutes.help:
-        return MaterialPageRoute(builder: (_) => const HelpPage());
+        return MaterialPageRoute(builder: (_) => const HelpChatPage());
       case AppRoutes.profile:
         return MaterialPageRoute(builder: (_) => const ProfilePage());
       // Rota de erro caso a rota chamada não exista
       case AppRoutes.dashboard:
         return MaterialPageRoute(builder: (_) => const DashboardPage());
-      case AppRoutes.help:
-        return MaterialPageRoute(builder: (_) => const HelpPage());
 
       default:
         return MaterialPageRoute(

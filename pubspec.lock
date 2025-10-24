@@ -53,10 +53,10 @@ packages:
     dependency: transitive
     description:
       name: fake_async
-      sha256: "6a95e56b2449df2273fd8c45a662d6947ce1ebb7aafe80e550a3f68297f3cacc"
+      sha256: "5368f224a74523e8d2e7399ea1638b37aecfca824a3cc4dfdf77bf1fa905ac44"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.2"
+    version: "1.3.3"
   ffi:
     dependency: transitive
     description:
@@ -180,17 +180,10 @@ packages:
     dependency: transitive
     description:
       name: leak_tracker
-<<<<<<< HEAD
       sha256: "33e2e26bdd85a0112ec15400c8cbffea70d0f9c3407491f672a2fad47915e2de"
       url: "https://pub.dev"
     source: hosted
     version: "11.0.2"
-=======
-      sha256: c35baad643ba394b40aac41080300150a4f08fd0fd6a10378f8f7c6bc161acec
-      url: "https://pub.dev"
-    source: hosted
-    version: "10.0.8"
->>>>>>> fe4183e501dea0894849485041a4dc7117e83814
   leak_tracker_flutter_testing:
     dependency: transitive
     description:
@@ -453,5 +446,5 @@ packages:
     source: hosted
     version: "1.1.0"
 sdks:
-  dart: ">=3.7.0 <4.0.0"
+  dart: ">=3.8.0-0 <4.0.0"
   flutter: ">=3.29.0"

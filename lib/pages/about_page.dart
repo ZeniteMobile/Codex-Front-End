@@ -9,7 +9,7 @@ class AboutPage extends StatelessWidget {
     return ScaffoldWithSlivers(
       title: 'Sobre',
       showBackButton: true,
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,25 +24,16 @@ class AboutPage extends StatelessWidget {
                       color: Colors.green[800],
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Image.asset(
-                      'assets/logo-zenite.png',
-                      width: 200,
-                      height: 200,
-                      frameBuilder:
-                          (
-                            BuildContext context,
-                            Widget child,
-                            int? frame,
-                            bool wasSynchronouslyLoaded,
-                          ) {
-                            return ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: child,
-                            );
-                          },
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) =>
-                          const Icon(Icons.error, size: 100),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        'assets/logo-zenite.png',
+                        width: 120,
+                        height: 120,
+                        fit: BoxFit.contain,
+                        errorBuilder: (_, __, ___) =>
+                            const Icon(Icons.error, size: 100),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -53,96 +44,16 @@ class AboutPage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          SliverPadding(
-            padding: const EdgeInsets.all(16.0),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate([
-                Center(
-                  child: Column(
-                    children: [
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.green[800],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        // Placeholder for the logo
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset(
-                            'assets/logo-zenite.jpeg',
-                            width: 120,
-                            height: 120,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Desenvolvido pela Zênite-Digital',
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Equipe',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                _buildTeamMember(
-                  name: 'Arthur Hydeki Ricken',
-                  role: 'Desenvolvedor',
-                  imageAsset: 'assets/profile-pics/tui.jpeg',
-                ),
-                _buildTeamMember(
-                  name: 'Eduardo B. Garcia',
-                  role: 'Desenvolvedor',
-                  imageAsset: 'assets/profile-pics/2.png',
-                ),
-                _buildTeamMember(
-                  name: 'Rafael L. B. Ouverney',
-                  role: 'Desenvolvedor',
-                  imageAsset: 'assets/profile-pics/3.png',
-                ),
-                _buildTeamMember(
-                  name: 'Vitor B. Garcia',
-                  role: 'Desenvolvedor',
-                  imageAsset: 'assets/profile-pics/4.png',
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'Licenças',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                _buildLicenseItem(
-                  title: 'Imagens de Perfil',
-                  subtitle: 'Imagem por pikisuperstar, Freepik',
-                  icon: Icons.collections,
-                ),
-                const SizedBox(height: 24),
-                const Text(
-                  'IFPR',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 8),
-                _buildLicenseItem(
-                  title: 'Desenvolvido no IFPR',
-                  subtitle:
-                      'Parte de projeto na disciplina de Desenvolvimento para Dispositivos Móveis',
-                  icon: Icons.school,
-                ),
-              ]),
+            const SizedBox(height: 24),
+            const Text(
+              'Equipe',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             _buildTeamMember(
               name: 'Arthur Hydeki Ricken',
               role: 'Desenvolvedor',
-              imageAsset: 'assets/profile-pics/1.png',
+              imageAsset: 'assets/profile-pics/tui.jpeg',
             ),
             _buildTeamMember(
               name: 'Eduardo B. Garcia',
@@ -196,10 +107,13 @@ class AboutPage extends StatelessWidget {
   }) {
     return Card(
       elevation: 0,
-      color: Colors.purple.withValues(alpha: 0.05),
+      color: Colors.purple.withOpacity(0.05),
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
-        leading: CircleAvatar(backgroundImage: AssetImage(imageAsset)),
+        leading: CircleAvatar(
+          backgroundImage: AssetImage(imageAsset),
+          onBackgroundImageError: (_, __) {},
+        ),
         title: Text(name),
         subtitle: Text(role),
       ),
@@ -213,13 +127,13 @@ class AboutPage extends StatelessWidget {
   }) {
     return Card(
       elevation: 0,
-      color: Colors.purple.withValues(alpha: 0.05),
+      color: Colors.purple.withOpacity(0.05),
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: ListTile(
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.green.withValues(alpha: 0.1),
+            color: Colors.green.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Icon(icon, color: Colors.green[800]),
