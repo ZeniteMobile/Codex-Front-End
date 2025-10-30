@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:codex/routes/app_routes.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -42,9 +45,40 @@ class _SignUpPageState extends State<SignUpPage> {
         _nameController.text,
         _emailController.text,
         _passwordController.text,
-      ).then((response) {
+      ).then((response) async {
         if (response.statusCode == 201) {
-          Navigator.pushNamedAndRemoveUntil(context, AppRoutes.postLogin, (route) => false);
+          // Tenta extrair a api key da resposta (suporta JSON ou string simples)
+          String apiKey = '';
+          try {
+            final body = jsonDecode(response.body);
+            if (body is Map) {
+              apiKey = (body['api_key'] ?? body['apiKey'] ?? body['token'] ?? '')?.toString() ?? '';
+            } else if (body is String) {
+              apiKey = body;
+            }
+          } catch (_) {
+            // se não for JSON, usa o body completo como chave
+            apiKey = response.body;
+          }
+
+          // Salva os dados localmente (usado pela tela post_login)
+          try {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('user_name', _nameController.text);
+            await prefs.setString('user_email', _emailController.text);
+            await prefs.setString('user_password', _passwordController.text);
+            if (apiKey.isNotEmpty) await prefs.setString('user_api_key', apiKey);
+          } catch (_) {
+            // erro ao salvar prefs não deve impedir a navegação
+          }
+
+          // Passa a apiKey via argumentos para a tela PostLogin e limpa a pilha
+          Navigator.pushNamedAndRemoveUntil(
+            context,
+            AppRoutes.postLogin,
+            (route) => false,
+            arguments: {'api_key': apiKey},
+          );
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Erro: ${response.body}')),

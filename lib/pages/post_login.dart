@@ -19,11 +19,35 @@ class _PostLoginPageState extends State<PostLoginPage> {
   final _passwordController = TextEditingController();
   final _apiKeyController = TextEditingController();
   bool _obscurePassword = true;
+  bool _argsHandled = false;
 
   @override
   void initState() {
     super.initState();
     _loadFromDatabase();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_argsHandled) {
+      final args = ModalRoute.of(context)?.settings.arguments;
+      if (args != null) {
+        if (args is Map && args['api_key'] != null) {
+          final apiKey = args['api_key']?.toString() ?? '';
+          if (apiKey.isNotEmpty) {
+            // atualiza campo e persiste
+            setState(() {
+              _apiKeyController.text = apiKey;
+            });
+            SharedPreferences.getInstance().then((prefs) async {
+              await prefs.setString('user_api_key', apiKey);
+            });
+          }
+        }
+      }
+      _argsHandled = true;
+    }
   }
 
   Future<void> _loadFromDatabase() async {

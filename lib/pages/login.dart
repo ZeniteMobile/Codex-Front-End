@@ -9,6 +9,73 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+
+class _AnimatedToast extends StatefulWidget {
+  final String message;
+  final bool success;
+
+  const _AnimatedToast({Key? key, required this.message, this.success = true}) : super(key: key);
+
+  @override
+  State<_AnimatedToast> createState() => _AnimatedToastState();
+}
+
+class _AnimatedToastState extends State<_AnimatedToast> with SingleTickerProviderStateMixin {
+  late final AnimationController _ctrl;
+  late final Animation<double> _opacity;
+  late final Animation<Offset> _slide;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 360));
+    _opacity = CurvedAnimation(parent: _ctrl, curve: Curves.easeOut);
+    _slide = Tween<Offset>(begin: const Offset(0, -0.1), end: Offset.zero).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeOut));
+    _ctrl.forward();
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SlideTransition(
+      position: _slide,
+      child: FadeTransition(
+        opacity: _opacity,
+        child: Material(
+          color: Colors.transparent,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: widget.success ? Colors.green.shade700 : Colors.red.shade700,
+              borderRadius: BorderRadius.circular(12),
+              boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 8, offset: Offset(0,4))],
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(widget.success ? Icons.check_circle_outline : Icons.error_outline, color: Colors.white),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    widget.message,
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 Future<http.Response> _login(String email, String password) {
   return http.post(
     Uri.parse('http://localhost:3000/auth'),
@@ -29,46 +96,35 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  void _submit() {
-    if (_formKey.currentState?.validate() ?? false) {
-      _login(_emailController.text, _passwordController.text)
-          .then((response) {
-            if (response.statusCode == 201) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                   response.body,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  backgroundColor: Colors.green,
-                ),
-              );
-              Navigator.pushNamedAndRemoveUntil(context, AppRoutes.dashboard, (route) => false);
-            } else if (response.statusCode == 401) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    'Erro: E-mail ou senha inválidos',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  backgroundColor: Colors.redAccent,
-                ),
-              );
-            }
-          })
-          .catchError((error) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text(
-                  'Erro: $error',
-                  style: TextStyle(color: Colors.white),
-                ),
-                backgroundColor: Colors.redAccent,
-              ),
-            );
-          });
-    }
+  
+
+  Future<void> _showAnimatedMessage({
+    required String message,
+    bool success = true,
+    Duration duration = const Duration(milliseconds: 1600),
+  }) async {
+    if (!mounted) return;
+
+  final overlay = Overlay.of(context);
+
+    final entry = OverlayEntry(builder: (context) {
+      return Positioned(
+        top: 80,
+        left: 24,
+        right: 24,
+        child: _AnimatedToast(
+          message: message,
+          success: success,
+        ),
+      );
+    });
+
+    overlay.insert(entry);
+    await Future.delayed(duration);
+    entry.remove();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -207,51 +263,18 @@ class _LoginPageState extends State<LoginPage> {
                             if (mounted) Navigator.of(context, rootNavigator: true).pop();
 
                             if (response.statusCode == 201) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                              content: Text(
-                                response.body,
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Colors.green,
-                              ),
-                            );
-                            if (mounted) {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context, AppRoutes.dashboard, (route) => false);
-                            }
+                              await _showAnimatedMessage(message: response.body, success: true);
+                              if (mounted) {
+                                Navigator.pushNamedAndRemoveUntil(context, AppRoutes.dashboard, (route) => false);
+                              }
                             } else if (response.statusCode == 401) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                              content: const Text(
-                                'Erro: E-mail ou senha inválidos',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Colors.redAccent,
-                              ),
-                            );
+                              await _showAnimatedMessage(message: 'E-mail ou senha inválidos', success: false);
                             } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                              content: Text(
-                                'Erro: ${response.statusCode} ${response.reasonPhrase}',
-                                style: const TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Colors.redAccent,
-                              ),
-                            );
+                              await _showAnimatedMessage(message: 'Erro: ${response.statusCode} ${response.reasonPhrase}', success: false);
                             }
                           } catch (error) {
                             if (mounted) Navigator.of(context, rootNavigator: true).pop();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                              'Erro: $error',
-                              style: const TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Colors.redAccent,
-                            ),
-                            );
+                            await _showAnimatedMessage(message: 'Erro: $error', success: false);
                           }
                           },
                           style: ElevatedButton.styleFrom(
